@@ -35,6 +35,7 @@ public class GrenadeAction : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ExplodeGrenade"))
         {
+            Debug.Log("Name");
             scale = new Vector3(5.0f, 5.0f, 5.0f);
             transform.localScale = scale;
             explosionTime = true;

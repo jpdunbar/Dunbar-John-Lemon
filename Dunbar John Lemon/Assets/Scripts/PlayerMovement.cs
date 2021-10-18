@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody grenade;
     public Transform lemon;
+    public Transform virtualCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -65,5 +66,17 @@ public class PlayerMovement : MonoBehaviour
     {
         m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * m_Animator.deltaPosition.magnitude*2);
         m_Rigidbody.MoveRotation(m_Rotation);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("CameraChange"))
+        {
+            virtualCamera.rotation = Quaternion.Euler(90, 0, 0);
+        }
+        if (other.gameObject.CompareTag("CameraReturn"))
+        {
+            virtualCamera.rotation = Quaternion.Euler(25, 0, 0);
+        }
     }
 }
