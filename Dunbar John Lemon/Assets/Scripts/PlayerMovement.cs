@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Rigidbody grenadeInstance;
             grenadeInstance = Instantiate(grenade, lemon.position, lemon.rotation) as Rigidbody;
-            grenadeInstance.AddForce(lemon.forward * 1000);
+            grenadeInstance.AddForce(lemon.forward * 500);
         }
 
         float horizontal = Input.GetAxis("Horizontal");

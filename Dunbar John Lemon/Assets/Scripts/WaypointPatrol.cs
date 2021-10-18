@@ -8,6 +8,7 @@ public class WaypointPatrol : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public Transform[] waypoints;
     int m_CurrentWaypointIndex;
+    public Vector3 scale;
 
     void Start()
     {
@@ -20,6 +21,15 @@ public class WaypointPatrol : MonoBehaviour
         {
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+        }
+    }
+
+    //Move the enemy if they trigger the invisible wall
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Explosion"))
+        {
+            Destroy(gameObject);
         }
     }
 }
