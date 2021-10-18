@@ -29,7 +29,7 @@ public class WaypointPatrol : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Explosion"))
         {
-            Destroy(gameObject);
+            Destroy(gameObject, .3f);
         }
     }
 }

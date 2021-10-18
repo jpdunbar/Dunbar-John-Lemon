@@ -21,12 +21,12 @@ public class GrenadeAction : MonoBehaviour
     {
         if (explosionSize < 5 && explosionTime == true)
         {
-            explosionSize += Time.deltaTime * 20.0f;
+            explosionSize += Time.deltaTime * 18.0f;
             scale = new Vector3(explosionSize, explosionSize, explosionSize);
             transform.localScale = scale;
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
-            Destroy(gameObject, 0.3f);
+            Destroy(gameObject, 0.4f);
         }
     }
 
