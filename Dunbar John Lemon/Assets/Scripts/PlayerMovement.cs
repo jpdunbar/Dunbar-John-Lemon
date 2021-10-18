@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
 
+    public Rigidbody grenade;
+    public Transform lemon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +24,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Rigidbody grenadeInstance;
+            grenadeInstance = Instantiate(grenade, lemon.position, lemon.rotation) as Rigidbody;
+            grenadeInstance.AddForce(lemon.forward * 1000);
+        }
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
