@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ExplodeGrenade
   - Explosion
+  - CameraChange
+  - CameraReturn
   layers:
   - Default
   - TransparentFX
