@@ -18,8 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform virtualCamera;
     public TextMeshProUGUI ghostCount;
     public GameObject win;
-    public int numberGhosts;
-    private bool check
+    public GameObject introScreen;
+    private int numberGhosts;
+    private bool intro = true;
 
     // Start is called before the first frame update
     void Start()
@@ -27,9 +28,10 @@ public class PlayerMovement : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
         m_Rigidbody = GetComponent<Rigidbody>();
-        numberGhosts = 9;
+        numberGhosts = 10;
         ghostCount.text = "Ghosts: " + numberGhosts.ToString();
         win.SetActive(false);
+        introScreen.SetActive(true);
     }
 
     // Update is called once per frame
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
             Rigidbody grenadeInstance;
             grenadeInstance = Instantiate(grenade, lemon.position, lemon.rotation) as Rigidbody;
             grenadeInstance.AddForce(lemon.forward * 500);
+            intro = false;
         }
 
         float horizontal = Input.GetAxis("Horizontal");
@@ -68,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 desiredForward = Vector3.RotateTowards(transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
         m_Rotation = Quaternion.LookRotation(desiredForward);
+
+        if(intro == false)
+        {
+            introScreen.SetActive(false);
+        }
 
         if(numberGhosts <= 0)
         {
