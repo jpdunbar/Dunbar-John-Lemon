@@ -17,7 +17,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform lemon;
     public Transform virtualCamera;
     public TextMeshProUGUI ghostCount;
+    public GameObject win;
     public int numberGhosts;
+    private bool check
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         numberGhosts = 9;
         ghostCount.text = "Ghosts: " + numberGhosts.ToString();
+        win.SetActive(false);
     }
 
     // Update is called once per frame
@@ -65,8 +68,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 desiredForward = Vector3.RotateTowards(transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
         m_Rotation = Quaternion.LookRotation(desiredForward);
-        
-        
+
+        if(numberGhosts <= 0)
+        {
+            win.SetActive(true);
+        }
     }
 
     void OnAnimatorMove()
