@@ -12,12 +12,20 @@ public class WaypointPatrol : MonoBehaviour
     public Vector3 scale;
     public Rigidbody pickup;
     public Transform ghost;
+    public GameObject player;
+    public GameObject ghostObject;
     private Vector3 movement;
+    private Vector3 movement2;
+    private bool check;
+    private float timer;
 
     void Start()
     {
         navMeshAgent.SetDestination(waypoints[0].position);
         movement = new Vector3(0f, 0.5f, 0f);
+        movement2 = new Vector3(0f, 2.0f, 0f);
+        check = false;
+        timer = 2.0f;
     }
 
     void Update()
@@ -27,9 +35,23 @@ public class WaypointPatrol : MonoBehaviour
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         }
+        if(check == true)
+        {
+            if(timer >= 2.0f)
+            {
+                ghostObject.transform.LookAt(player.transform.position);
+                Rigidbody pickupInstance;
+                pickupInstance = Instantiate(pickup, ghost.position + movement, ghost.rotation) as Rigidbody;
+                pickupInstance.AddForce(ghost.forward * 500);
+                timer = 0;
+            }
+            else
+            {
+                timer += Time.deltaTime;
+            }
+        }
     }
 
-    //Move the enemy if they trigger the invisible wall
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Explosion"))
@@ -37,6 +59,10 @@ public class WaypointPatrol : MonoBehaviour
             Destroy(gameObject);
             Rigidbody pickupInstance;
             pickupInstance = Instantiate(pickup, ghost.position + movement, ghost.rotation) as Rigidbody;
+        }
+        if (other.gameObject.CompareTag("Player"))
+        {
+            check = true;
         }
     }
 }

@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 937362952247089378}
   - component: {fileID: 1857292947057111641}
   - component: {fileID: 6577717653830686555}
+  - component: {fileID: 7382695752760088257}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Ghost
@@ -346,8 +347,8 @@ MonoBehaviour:
   navMeshAgent: {fileID: 937362952247089378}
   waypoints: []
   scale: {x: 0, y: 0, z: 0}
-  ghostCount: {fileID: 0}
-  numberGhosts: 0
+  pickup: {fileID: 0}
+  ghost: {fileID: 0}
 --- !u!82 &6577717653830686555
 AudioSource:
   m_ObjectHideFlags: 0
@@ -444,6 +445,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &7382695752760088257
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7437827552564488459}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7437827552564488461
 GameObject:
   m_ObjectHideFlags: 0
