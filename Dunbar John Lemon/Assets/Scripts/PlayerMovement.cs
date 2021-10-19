@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject introScreen;
     private int numberGhosts;
     private bool intro = true;
+    private int sprint;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         ghostCount.text = "Ghosts: " + numberGhosts.ToString();
         win.SetActive(false);
         introScreen.SetActive(true);
+        sprint = 2;
     }
 
     // Update is called once per frame
@@ -43,9 +45,14 @@ public class PlayerMovement : MonoBehaviour
             grenadeInstance = Instantiate(grenade, lemon.position, lemon.rotation) as Rigidbody;
             grenadeInstance.AddForce(lemon.forward * 500);
             intro = false;
+            sprint = 4;
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            sprint = 2;
         }
 
-        float horizontal = Input.GetAxis("Horizontal");
+            float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         m_Movement.Set(horizontal, 0f, vertical);
@@ -85,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnAnimatorMove()
     {
-        m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * m_Animator.deltaPosition.magnitude*2);
+        m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * m_Animator.deltaPosition.magnitude*sprint);
         m_Rigidbody.MoveRotation(m_Rotation);
     }
 
