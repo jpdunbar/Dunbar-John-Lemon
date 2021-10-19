@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("CameraChange"))
         {
-            virtualCamera.rotation = Quaternion.Euler(90, 0, 0);
+            virtualCamera.rotation = Quaternion.Euler(45, 0, 0);
         }
         if (other.gameObject.CompareTag("CameraReturn"))
         {
