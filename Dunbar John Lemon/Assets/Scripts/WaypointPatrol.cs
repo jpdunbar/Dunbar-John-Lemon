@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class WaypointPatrol : MonoBehaviour
 {
@@ -9,10 +10,14 @@ public class WaypointPatrol : MonoBehaviour
     public Transform[] waypoints;
     int m_CurrentWaypointIndex;
     public Vector3 scale;
+    public TextMeshProUGUI ghostCount;
+    public int numberGhosts;
 
     void Start()
     {
         navMeshAgent.SetDestination(waypoints[0].position);
+        numberGhosts = 9;
+        //ghostCount.text = "Ghosts: " + numberGhosts.ToString();
     }
 
     void Update()
@@ -29,7 +34,9 @@ public class WaypointPatrol : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Explosion"))
         {
-            Destroy(gameObject, .3f);
+            //numberGhosts -= 1;
+            //Destroy(gameObject, .3f);
+            //ghostCount.text = "Ghosts: " + numberGhosts.ToString();
         }
     }
 }

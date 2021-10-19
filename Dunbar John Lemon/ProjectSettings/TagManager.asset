@@ -8,6 +8,7 @@ TagManager:
   - Explosion
   - CameraChange
   - CameraReturn
+  - Ghost
   layers:
   - Default
   - TransparentFX
