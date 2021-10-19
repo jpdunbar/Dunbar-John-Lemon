@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class GrenadeAction : MonoBehaviour
 {
@@ -10,15 +9,11 @@ public class GrenadeAction : MonoBehaviour
     public bool explosionTime = false;
     public float explosionSize = 0f;
     private Rigidbody rb;
-    public TextMeshProUGUI ghostCount;
-    public int numberGhosts;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        numberGhosts = 9;
-        ghostCount.text = "Ghosts: " + numberGhosts.ToString();
     }
 
     // Update is called once per frame
@@ -48,12 +43,6 @@ public class GrenadeAction : MonoBehaviour
         {
             scale = new Vector3(0.1f, 0.1f, 0.1f);
             transform.localScale = scale;
-        }
-        if (other.gameObject.CompareTag("Ghost"))
-        {
-            other.gameObject.SetActive(false);
-            numberGhosts -= 1;
-            ghostCount.text = "Ghosts: " + numberGhosts.ToString();
         }
     }
 }

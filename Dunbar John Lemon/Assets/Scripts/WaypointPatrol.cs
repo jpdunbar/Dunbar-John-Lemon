@@ -10,14 +10,14 @@ public class WaypointPatrol : MonoBehaviour
     public Transform[] waypoints;
     int m_CurrentWaypointIndex;
     public Vector3 scale;
-    public TextMeshProUGUI ghostCount;
-    public int numberGhosts;
+    public Rigidbody pickup;
+    public Transform ghost;
+    private Vector3 movement;
 
     void Start()
     {
         navMeshAgent.SetDestination(waypoints[0].position);
-        numberGhosts = 9;
-        //ghostCount.text = "Ghosts: " + numberGhosts.ToString();
+        movement = new Vector3(0f, 0.5f, 0f);
     }
 
     void Update()
@@ -34,9 +34,9 @@ public class WaypointPatrol : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Explosion"))
         {
-            //numberGhosts -= 1;
-            //Destroy(gameObject, .3f);
-            //ghostCount.text = "Ghosts: " + numberGhosts.ToString();
+            Destroy(gameObject);
+            Rigidbody pickupInstance;
+            pickupInstance = Instantiate(pickup, ghost.position + movement, ghost.rotation) as Rigidbody;
         }
     }
 }

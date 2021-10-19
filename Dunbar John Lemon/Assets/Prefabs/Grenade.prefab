@@ -128,3 +128,5 @@ MonoBehaviour:
   scale: {x: 0, y: 0, z: 0}
   explosionTime: 0
   explosionSize: 0
+  ghostCount: {fileID: 0}
+  numberGhosts: 0

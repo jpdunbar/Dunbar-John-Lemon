@@ -9,6 +9,7 @@ TagManager:
   - CameraChange
   - CameraReturn
   - Ghost
+  - Pickup
   layers:
   - Default
   - TransparentFX

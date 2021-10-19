@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody grenade;
     public Transform lemon;
     public Transform virtualCamera;
+    public TextMeshProUGUI ghostCount;
+    public int numberGhosts;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
         m_Rigidbody = GetComponent<Rigidbody>();
+        numberGhosts = 9;
+        ghostCount.text = "Ghosts: " + numberGhosts.ToString();
     }
 
     // Update is called once per frame
@@ -79,6 +84,12 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("CameraReturn"))
         {
             virtualCamera.rotation = Quaternion.Euler(25, 0, 0);
+        }
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            numberGhosts -= 1;
+            ghostCount.text = "Ghosts: " + numberGhosts.ToString();
+            other.gameObject.SetActive(false);
         }
     }
 }
