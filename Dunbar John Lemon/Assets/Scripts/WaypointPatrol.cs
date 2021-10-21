@@ -11,6 +11,7 @@ public class WaypointPatrol : MonoBehaviour
     int m_CurrentWaypointIndex;
     public Vector3 scale;
     public Rigidbody pickup;
+    public Rigidbody ghostShot;
     public Transform ghost;
     public GameObject player;
     public GameObject ghostObject;
@@ -37,11 +38,11 @@ public class WaypointPatrol : MonoBehaviour
         }
         if(check == true)
         {
-            if(timer >= 2.0f)
+            ghostObject.transform.LookAt(player.transform.position);
+            if (timer >= 2.0f)
             {
-                ghostObject.transform.LookAt(player.transform.position);
                 Rigidbody pickupInstance;
-                pickupInstance = Instantiate(pickup, ghost.position + movement, ghost.rotation) as Rigidbody;
+                pickupInstance = Instantiate(ghostShot, ghost.position + movement, ghost.rotation) as Rigidbody;
                 pickupInstance.AddForce(ghost.forward * 500);
                 timer = 0;
             }

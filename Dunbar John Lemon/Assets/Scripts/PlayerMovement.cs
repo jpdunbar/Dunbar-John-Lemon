@@ -17,11 +17,14 @@ public class PlayerMovement : MonoBehaviour
     public Transform lemon;
     public Transform virtualCamera;
     public TextMeshProUGUI ghostCount;
+    public TextMeshProUGUI livesCount;
     public GameObject win;
+    public GameObject lose;
     public GameObject introScreen;
     private int numberGhosts;
     private bool intro = true;
     private int sprint;
+    private int lives;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +32,12 @@ public class PlayerMovement : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
         m_Rigidbody = GetComponent<Rigidbody>();
+        lives = 5;
         numberGhosts = 10;
         ghostCount.text = "Ghosts: " + numberGhosts.ToString();
+        livesCount.text = "Lives: " + lives.ToString();
         win.SetActive(false);
+        lose.SetActive(false);
         introScreen.SetActive(true);
         sprint = 2;
     }
@@ -52,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
             sprint = 2;
         }
 
-            float horizontal = Input.GetAxis("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         m_Movement.Set(horizontal, 0f, vertical);
@@ -84,9 +90,14 @@ public class PlayerMovement : MonoBehaviour
             introScreen.SetActive(false);
         }
 
-        if(numberGhosts <= 0)
+        if(numberGhosts <= 0 && lives > 0)
         {
             win.SetActive(true);
+        }
+
+        if(lives <= 0)
+        {
+            lose.SetActive(true);
         }
     }
 
@@ -110,6 +121,12 @@ public class PlayerMovement : MonoBehaviour
         {
             numberGhosts -= 1;
             ghostCount.text = "Ghosts: " + numberGhosts.ToString();
+            other.gameObject.SetActive(false);
+        }
+        if (other.gameObject.CompareTag("EnemyShot"))
+        {
+            lives -= 1;
+            livesCount.text = "Lives: " + lives.ToString();
             other.gameObject.SetActive(false);
         }
     }
