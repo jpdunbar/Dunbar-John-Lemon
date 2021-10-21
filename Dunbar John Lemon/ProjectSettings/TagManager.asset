@@ -10,6 +10,7 @@ TagManager:
   - CameraReturn
   - Ghost
   - Pickup
+  - EnemyShot
   layers:
   - Default
   - TransparentFX
