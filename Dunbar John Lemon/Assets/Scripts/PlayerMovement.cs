@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Throw the capture device 
         if (Input.GetButtonDown("Shoot"))
         {
             Rigidbody grenadeInstance;
