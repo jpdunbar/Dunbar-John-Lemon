@@ -7,6 +7,7 @@ public class GrenadeAction : MonoBehaviour
 
     public Vector3 scale;
     public bool explosionTime = false;
+    public bool shrink = false;
     public float explosionSize = 0f;
     private Rigidbody rb;
 
@@ -26,7 +27,18 @@ public class GrenadeAction : MonoBehaviour
             transform.localScale = scale;
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
-            Destroy(gameObject, 0.4f);
+        }
+        if (explosionSize >= 5)
+        {
+            shrink = true;
+        }
+        if(shrink == true) {
+            explosionTime = false;
+            explosionSize -= Time.deltaTime * 18.0f;
+            Debug.Log(explosionSize);
+            scale = new Vector3(explosionSize, explosionSize, explosionSize);
+            transform.localScale = scale;
+            Destroy(gameObject, 0.2f);
         }
     }
 

@@ -55,15 +55,17 @@ public class WaypointPatrol : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Explosion"))
-        {
-            Destroy(gameObject);
-            Rigidbody pickupInstance;
-            pickupInstance = Instantiate(pickup, ghost.position + movement, ghost.rotation) as Rigidbody;
-        }
         if (other.gameObject.CompareTag("Player"))
         {
             check = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            check = false;
         }
     }
 }

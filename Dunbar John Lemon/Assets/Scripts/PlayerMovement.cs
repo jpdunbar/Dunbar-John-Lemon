@@ -45,15 +45,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Shoot"))
         {
             Rigidbody grenadeInstance;
             grenadeInstance = Instantiate(grenade, lemon.position, lemon.rotation) as Rigidbody;
             grenadeInstance.AddForce(lemon.forward * 500);
             intro = false;
+        }
+
+        if (Input.GetButtonDown("Run"))
+        {
             sprint = 4;
         }
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp("Run"))
         {
             sprint = 2;
         }
@@ -82,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             m_AudioSource.Stop();
         }
 
-        Vector3 desiredForward = Vector3.RotateTowards(transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
+        Vector3 desiredForward = Vector3.RotateTowards(transform.forward, m_Movement, turnSpeed, 0f);
         m_Rotation = Quaternion.LookRotation(desiredForward);
 
         if(intro == false)
