@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Enable or disable the background
-        if(intro == true)
+        if(background.enabled == true)
         {
             if (Input.GetButtonDown("Intro"))
             {
