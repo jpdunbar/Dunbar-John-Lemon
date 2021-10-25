@@ -20,6 +20,8 @@ public class GrenadeAction : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+
+        //Increase the grenade explosion size
         if (explosionSize < 5 && explosionTime == true)
         {
             explosionSize += Time.deltaTime * 18.0f;
@@ -28,6 +30,8 @@ public class GrenadeAction : MonoBehaviour
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
         }
+
+        //Shrink the grenade explosion size
         if (explosionSize >= 5)
         {
             shrink = true;

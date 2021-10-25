@@ -31,6 +31,7 @@ public class WaypointPatrol : MonoBehaviour
 
     void Update()
     {
+        //Move the enemy between waypoints
         if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
         {
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
@@ -53,6 +54,7 @@ public class WaypointPatrol : MonoBehaviour
         }
     }
 
+    //Look at the player
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -61,6 +63,7 @@ public class WaypointPatrol : MonoBehaviour
         }
     }
 
+    //Stop looking at the player
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

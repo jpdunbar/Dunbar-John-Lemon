@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,9 +27,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject playerLocation;
     public GameObject introScreen;
     private int numberGhosts;
-    private bool intro = true;
     private int sprint;
     private int lives;
+    private float reset;
 
     // Start is called before the first frame update
     void Start()
@@ -47,12 +48,13 @@ public class PlayerMovement : MonoBehaviour
         playerLocation.SetActive(true);
         introScreen.SetActive(true);
         sprint = 2;
+        reset = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Throw the capture device 
+        //Throw the capture device a certain distance in front of John Lemon
         if (Input.GetButtonDown("Shoot"))
         {
             Rigidbody grenadeInstance;
@@ -60,12 +62,13 @@ public class PlayerMovement : MonoBehaviour
             grenadeInstance.AddForce(lemon.forward * 500);
         }
 
+        //Enable or disable the background
         if(intro == true)
         {
             if (Input.GetButtonDown("Intro"))
             {
                 background.enabled = false;
-                intro = false;
+                introScreen.SetActive(false);
             }
         }
         else
@@ -73,10 +76,11 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButtonDown("Intro"))
             {
                 background.enabled = true;
-                intro = true;
+                introScreen.SetActive(true);
             }
         }
 
+        //Have the player run
         if (Input.GetButtonDown("Run"))
         {
             sprint = 4;
@@ -98,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
         m_Animator.SetBool("IsWalking", isWalking);
 
+        //Animation if the player is walking
         if (isWalking)
         {
             if (!m_AudioSource.isPlaying)
@@ -113,23 +118,24 @@ public class PlayerMovement : MonoBehaviour
         Vector3 desiredForward = Vector3.RotateTowards(transform.forward, m_Movement, turnSpeed, 0f);
         m_Rotation = Quaternion.LookRotation(desiredForward);
 
-        if(intro == false)
-        {
-            introScreen.SetActive(false);
-        }
-        else
-        {
-            introScreen.SetActive(true);
-        }
-
+        //Count and update the number of ghosts
         if(numberGhosts <= 0 && lives > 0)
         {
             win.SetActive(true);
+            reset += Time.deltaTime;
         }
 
+        //Count and update the number of lives
         if(lives <= 0)
         {
             lose.SetActive(true);
+            reset += Time.deltaTime;
+        }
+
+        //Reset the game
+        if(reset >= 3)
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -141,20 +147,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Change the camera
         if (other.gameObject.CompareTag("CameraChange"))
         {
             virtualCamera.rotation = Quaternion.Euler(45, 0, 0);
         }
+
+        //Return the camera
         if (other.gameObject.CompareTag("CameraReturn"))
         {
             virtualCamera.rotation = Quaternion.Euler(25, 0, 0);
         }
+
+        //Pickup an item
         if (other.gameObject.CompareTag("Pickup"))
         {
             numberGhosts -= 1;
             ghostCount.text = "Ghosts: " + numberGhosts.ToString();
             other.gameObject.SetActive(false);
         }
+
+        //Shot by an enemy
         if (other.gameObject.CompareTag("EnemyShot"))
         {
             lives -= 1;

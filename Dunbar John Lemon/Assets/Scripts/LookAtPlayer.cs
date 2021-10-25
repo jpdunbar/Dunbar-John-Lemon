@@ -16,6 +16,7 @@ public class LookAtPlayer : MonoBehaviour
         marker.SetActive(true);
     }
 
+    //Update the position of the look at object
     void Update()
     {
         if(ghostObject != null)
@@ -24,8 +25,8 @@ public class LookAtPlayer : MonoBehaviour
         }
     }
 
-        private void OnTriggerEnter(Collider other)
-    {
+    //If the enemy is shot, destory it
+    private void OnTriggerEnter(Collider other){
         if (other.gameObject.CompareTag("Explosion"))
         {
             if(ghostObject != null)
