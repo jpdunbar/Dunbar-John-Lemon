@@ -7,11 +7,13 @@ public class LookAtPlayer : MonoBehaviour
     public Transform ghost;
     public GameObject ghostObject;
     public Rigidbody pickup;
+    public GameObject marker;
     private Vector3 movement;
 
     void Start()
     {
         movement = new Vector3(0f, 0.5f, 0f);
+        marker.SetActive(true);
     }
 
     void Update()
@@ -28,6 +30,7 @@ public class LookAtPlayer : MonoBehaviour
         {
             if(ghostObject != null)
             {
+                marker.SetActive(false);
                 Rigidbody pickupInstance;
                 pickupInstance = Instantiate(pickup, ghost.position + movement, ghost.rotation) as Rigidbody;
                 Destroy(ghostObject);

@@ -35,7 +35,6 @@ public class GrenadeAction : MonoBehaviour
         if(shrink == true) {
             explosionTime = false;
             explosionSize -= Time.deltaTime * 18.0f;
-            Debug.Log(explosionSize);
             scale = new Vector3(explosionSize, explosionSize, explosionSize);
             transform.localScale = scale;
             Destroy(gameObject, 0.2f);

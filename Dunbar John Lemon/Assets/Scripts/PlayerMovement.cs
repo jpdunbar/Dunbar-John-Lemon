@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,9 +18,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform lemon;
     public Transform virtualCamera;
     public TextMeshProUGUI ghostCount;
+    public Image background;
     public TextMeshProUGUI livesCount;
     public GameObject win;
     public GameObject lose;
+    public GameObject map;
+    public GameObject playerLocation;
     public GameObject introScreen;
     private int numberGhosts;
     private bool intro = true;
@@ -38,6 +42,9 @@ public class PlayerMovement : MonoBehaviour
         livesCount.text = "Lives: " + lives.ToString();
         win.SetActive(false);
         lose.SetActive(false);
+        map.SetActive(true);
+        background.enabled = true;
+        playerLocation.SetActive(true);
         introScreen.SetActive(true);
         sprint = 2;
     }
@@ -50,7 +57,23 @@ public class PlayerMovement : MonoBehaviour
             Rigidbody grenadeInstance;
             grenadeInstance = Instantiate(grenade, lemon.position, lemon.rotation) as Rigidbody;
             grenadeInstance.AddForce(lemon.forward * 500);
-            intro = false;
+        }
+
+        if(intro == true)
+        {
+            if (Input.GetButtonDown("Intro"))
+            {
+                background.enabled = false;
+                intro = false;
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Intro"))
+            {
+                background.enabled = true;
+                intro = true;
+            }
         }
 
         if (Input.GetButtonDown("Run"))
@@ -92,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
         if(intro == false)
         {
             introScreen.SetActive(false);
+        }
+        else
+        {
+            introScreen.SetActive(true);
         }
 
         if(numberGhosts <= 0 && lives > 0)
