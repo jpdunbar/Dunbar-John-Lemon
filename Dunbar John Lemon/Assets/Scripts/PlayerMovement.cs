@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public Image background;
     public TextMeshProUGUI livesCount;
     public GameObject win;
+    public GameObject captureDeviceStatus;
     public GameObject lose;
     public GameObject map;
     public GameObject playerLocation;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private int sprint;
     private int lives;
     private float reset;
+    private float shootTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -43,23 +45,36 @@ public class PlayerMovement : MonoBehaviour
         livesCount.text = "Lives: " + lives.ToString();
         win.SetActive(false);
         lose.SetActive(false);
+        captureDeviceStatus.SetActive(true);
         map.SetActive(true);
         background.enabled = true;
         playerLocation.SetActive(true);
         introScreen.SetActive(true);
         sprint = 2;
         reset = 0;
+        shootTimer = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Throw the capture device a certain distance in front of John Lemon
-        if (Input.GetButtonDown("Shoot"))
+        if (Input.GetButtonDown("Shoot") && shootTimer >= .5)
         {
             Rigidbody grenadeInstance;
             grenadeInstance = Instantiate(grenade, lemon.position, lemon.rotation) as Rigidbody;
             grenadeInstance.AddForce(lemon.forward * 500);
+            shootTimer = 0;
+        }
+
+        if(shootTimer <= 0.5)
+        {
+            shootTimer += Time.deltaTime;
+            captureDeviceStatus.SetActive(false);
+        }
+        else
+        {
+            captureDeviceStatus.SetActive(true);
         }
 
         //Enable or disable the background
